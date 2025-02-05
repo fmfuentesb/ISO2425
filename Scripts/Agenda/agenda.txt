@@ -1,7 +1,0 @@
-232323323:Juan:García Gómez:Badajoz
-123456789:Jose:Cruz Moreno:Badajoz
-898787878:Rosa:García Díaz:Cáceres
-789888881:Juana:García Díaz:Cáceres
-123458000:Antonio:López Antón:Zamora
-152342000:Luis:Escudero Barrantes:Burgos
-123156465:María:García Canales:Córdoba
