@@ -1,0 +1,70 @@
+"""
+
+Entrega 1 de python
+Autor: Francisco Manuel Fuentes Borrallo
+Fecha: 25/03/2025
+
+"""
+from gettext import install
+import os
+from os import getuid
+from cpuinfo import get_cpu_info
+
+if os.getuid() != 0:
+    print("No eres root")
+    exit()
+
+while True:
+    print("")
+    print("Menú de opciones:")
+    print("1.-Muestra información del SSOO e información de la CPU")
+    print("2.-Pedir un usuario. Si existe, se muestra información sobre él, si no, se cre")
+    print("3.-Pedir al usuario un directorio. Comprobar si existe y si es un directorio, en caso contrario, lo crea")
+    print("4.-Salir")
+    op=int(input("Eliga una opción: "))
+    print("")
+
+    match op:
+
+        case 1:
+            print("Ha seleccionado la opción 1.")
+            print("Mi SSOO es",os.uname().sysname)
+            print("Mi procesador es",get_cpu_info()["brand_raw"])
+
+        case 2:
+            print("Ha seleccionado la opción 2.")
+            usuario=input("Dime el nombre de un usuario:")
+            fich=open("/etc/passwd","r")
+            contenido=fich.readlines()
+            enc=0
+            for i in contenido:
+                if usuario in i:
+                    enc=1
+                    final=i
+                    break
+            if enc == 1:
+                print(final)
+            else:
+                print("Usuario no encontrado")
+                os.system(("useradd"+usuario))
+                print("Se ha creado el usuario",usuario,"satisfactoriamente")
+
+        case 3:
+            print("Ha seleccionado la opción 3.")
+            directorio=input("Dime el nombre de un directorio: ")
+            if os.path.exists(directorio):
+                if os.path.isdir(directorio):
+                    print("El directorio ya existe")
+                else:
+                    print("Existe n archivo con el nombre indicado, pero no es un directorio")
+                    os.makedirs(directorio)
+                    print("El directorio",directorio,"se ha creado exitosamente")
+            else:
+                os.makedirs(directorio)
+                print("El directorio", directorio, "se ha creado exitosamente")
+        case 4:
+            print("Saliendo...")
+            break
+
+        case _:
+            print("Opción no válida.")
